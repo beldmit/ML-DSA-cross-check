@@ -207,13 +207,21 @@ static void usage(const char *prog)
     fprintf(stderr,
             "Usage: %s --algorithm <name> --seeds <file> --messages <file>\n"
             "       --signatures <outfile> --mode <mode> [--reuse-ctx] [--reuse-key]\n\n"
+            "Arguments:\n"
             "  --algorithm   ML-DSA-44, ML-DSA-65, or ML-DSA-87\n"
             "  --seeds       File with 32-byte key generation seeds\n"
             "  --messages    File with length-prefixed messages\n"
             "  --signatures  Output file for generated signatures\n"
-            "  --mode        evp_pkey_sign or evp_digestsign\n"
+            "  --mode        Signing API to use (see modes below)\n"
             "  --reuse-ctx   Reuse signing context across operations\n"
-            "  --reuse-key   Reuse EVP_PKEY via EVP_PKEY_fromdata() across seeds\n",
+            "  --reuse-key   Reuse EVP_PKEY via EVP_PKEY_fromdata() across seeds\n"
+            "\nModes:\n"
+            "  evp_pkey_sign    Sign via EVP_PKEY_sign_message_init + EVP_PKEY_sign\n"
+            "  evp_digestsign   Sign via EVP_DigestSignInit_ex + EVP_DigestSign\n"
+            "\n"
+            "The --reuse-ctx and --reuse-key flags are orthogonal and combine\n"
+            "with any mode, giving 2 x 2 x 2 = 8 configurations. All should\n"
+            "produce identical output for the same inputs.\n",
             prog);
 }
 
