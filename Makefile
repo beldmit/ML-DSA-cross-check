@@ -7,13 +7,13 @@ ifdef OPENSSL_DIR
                     -Wl,-rpath,$(OPENSSL_DIR)/lib64 -Wl,-rpath,$(OPENSSL_DIR)/lib
 endif
 
-TARGET = ml_dsa_cross_check
+TARGET = ml_dsa_openssl
 
 .PHONY: all clean
 
 all: $(TARGET)
 
-$(TARGET): ml_dsa_cross_check.c
+$(TARGET): ml_dsa_openssl.c
 	$(CC) $(CFLAGS) $(OPENSSL_CFLAGS) -o $@ $< $(OPENSSL_LDFLAGS) -lcrypto
 
 clean:
